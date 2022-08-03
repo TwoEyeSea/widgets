@@ -41,7 +41,16 @@ const Search = () => {
   // The first argument for useEffect() function is the function we want to run, the second argument determines which of the 3 cases to utilize for our useEffect().
   // See section 12 L151 for options and outcomes.
 
-  const renderedResults = result;
+  const renderedResults = results.map((result) => {
+    return (
+      <div key={result.pageid} className="item">
+        <div className="content">
+          <div className="header">{result.title}</div>
+          <span dangerouslySetInnerHTML={{ __html: result.snippet }}></span>
+        </div>
+      </div>
+    );
+  });
   return (
     <div>
       <div className="ui form">
@@ -55,6 +64,7 @@ const Search = () => {
           />
         </div>
       </div>
+      <div className="ui celled list">{renderedResults}</div>
     </div>
   );
 };
