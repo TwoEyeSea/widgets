@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const Search = () => {
-  const [term, setTerm] = useState("");
+  const [term, setTerm] = useState("programming");
+  const [results, setResults] = useState([]);
+
+  console.log(results);
 
   useEffect(() => {
     // OPTION 1 - DEFINING A TEMPORARY FUNCTION TO USE ASYNC/AWAIT:
     const searchWiki = async () => {
-      await axios.get("https://en.wikipedia.org/w/api.php", {
+      const { data } = await axios.get("https://en.wikipedia.org/w/api.php", {
         params: {
           action: "query",
           list: "search",
@@ -16,8 +19,12 @@ const Search = () => {
           srsearch: term,
         },
       });
+
+      setResults(data.query.search);
     };
+
     searchWiki();
+
     // wiki api query string  -> action=query&list=search&format=json&origin=*&srsearch=programming
     // OPTION 2 - REMOVING THE TEMPORARY FUNCTION:
     //   (async () => {
@@ -33,6 +40,8 @@ const Search = () => {
   }, [term]);
   // The first argument for useEffect() function is the function we want to run, the second argument determines which of the 3 cases to utilize for our useEffect().
   // See section 12 L151 for options and outcomes.
+
+  const renderedResults = result;
   return (
     <div>
       <div className="ui form">
