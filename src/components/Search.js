@@ -7,9 +7,18 @@ const Search = () => {
   useEffect(() => {
     // OPTION 1 - DEFINING A TEMPORARY FUNCTION TO USE ASYNC/AWAIT:
     const searchWiki = async () => {
-      await axios.get();
+      await axios.get("https://en.wikipedia.org/w/api.php", {
+        params: {
+          action: "query",
+          list: "search",
+          origin: "*",
+          format: "json",
+          srsearch: term,
+        },
+      });
     };
-
+    searchWiki();
+    // wiki api query string  -> action=query&list=search&format=json&origin=*&srsearch=programming
     // OPTION 2 - REMOVING THE TEMPORARY FUNCTION:
     //   (async () => {
     //   await axios.get("yada");
@@ -32,7 +41,6 @@ const Search = () => {
           <input
             value={term}
             onChange={(e) => setTerm(e.target.value)}
-            T
             className="inut"
             placeholder="Please enter a search term :)"
           />
