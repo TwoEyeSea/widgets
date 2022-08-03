@@ -27,3 +27,5 @@ const Accordion = ({ items }) => {
 };
 
 export default Accordion;
+
+//Accordion App makes use of the useState Hook
