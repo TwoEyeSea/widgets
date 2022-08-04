@@ -3,9 +3,19 @@ import axios from "axios";
 
 const Search = () => {
   const [term, setTerm] = useState("programming");
+  const [debouncedTerm, setDebouncedTerm] = useState(term);
+  // the term "debounced" refers to setting up a timer to change something and to cancel that timer if there is a consecutive change too soon.
   const [results, setResults] = useState([]);
 
-  console.log(results);
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+      setDebouncedTerm(term);
+    }, 500);
+
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [term]);
 
   useEffect(() => {
     // OPTION 1 - DEFINING A TEMPORARY FUNCTION TO USE ASYNC/AWAIT:
@@ -16,42 +26,15 @@ const Search = () => {
           list: "search",
           origin: "*",
           format: "json",
-          srsearch: term,
+          srsearch: debouncedTerm,
         },
       });
 
       setResults(data.query.search);
     };
 
-    if (term && !results.length) {
-      searchWiki();
-    } else {
-      const timeoutId = setTimeout(() => {
-        if (term) {
-          searchWiki();
-        }
-      }, 500);
-
-      // wiki api query string  -> action=query&list=search&format=json&origin=*&srsearch=programming
-      // OPTION 2 - REMOVING THE TEMPORARY FUNCTION:
-      //   (async () => {
-      //   await axios.get("yada");
-      // })();
-
-      //OPTION 3 - USING PROMISES:
-      //  axios.get("yada")
-      //  .then((repose) => {console.log(response.data);
-      //  });
-
-      //USING AXIOS WITH useEffect
-      return () => {
-        console.log("clearing");
-        clearTimeout(timeoutId);
-      };
-    }
-  }, [term]);
-  // The first argument for useEffect() function is the function we want to run, the second argument determines which of the 3 cases to utilize for our useEffect().
-  // See section 12 L151 for options and outcomes.
+    searchWiki();
+  }, [debouncedTerm]);
 
   const renderedResults = results.map((result) => {
     return (
