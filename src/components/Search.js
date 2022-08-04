@@ -23,28 +23,32 @@ const Search = () => {
       setResults(data.query.search);
     };
 
-    const timeoutId = setTimeout(() => {
-      if (term) {
-        searchWiki();
-      }
-    }, 500);
+    if (term && !results.length) {
+      searchWiki();
+    } else {
+      const timeoutId = setTimeout(() => {
+        if (term) {
+          searchWiki();
+        }
+      }, 500);
 
-    // wiki api query string  -> action=query&list=search&format=json&origin=*&srsearch=programming
-    // OPTION 2 - REMOVING THE TEMPORARY FUNCTION:
-    //   (async () => {
-    //   await axios.get("yada");
-    // })();
+      // wiki api query string  -> action=query&list=search&format=json&origin=*&srsearch=programming
+      // OPTION 2 - REMOVING THE TEMPORARY FUNCTION:
+      //   (async () => {
+      //   await axios.get("yada");
+      // })();
 
-    //OPTION 3 - USING PROMISES:
-    //  axios.get("yada")
-    //  .then((repose) => {console.log(response.data);
-    //  });
+      //OPTION 3 - USING PROMISES:
+      //  axios.get("yada")
+      //  .then((repose) => {console.log(response.data);
+      //  });
 
-    //USING AXIOS WITH useEffect
-    return () => {
-      console.log("clearing");
-      clearTimeout(timeoutId);
-    };
+      //USING AXIOS WITH useEffect
+      return () => {
+        console.log("clearing");
+        clearTimeout(timeoutId);
+      };
+    }
   }, [term]);
   // The first argument for useEffect() function is the function we want to run, the second argument determines which of the 3 cases to utilize for our useEffect().
   // See section 12 L151 for options and outcomes.
