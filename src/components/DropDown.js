@@ -5,18 +5,17 @@ const Dropdown = ({ options, selected, onSelectedChange }) => {
   const [open, setOpen] = useState(false);
   const ref = useRef();
 
-  useEffect(() => {
-    document.body.addEventListener(
-      "click",
-      (event) => {
-        if (ref.current.contains(event.target)) {
-          return;
-        }
-        setOpen(false);
-        console.log("body click", event.target);
-      },
-      { capture: true }
-    );
+  useEffect((showDropdown) => {
+    const onBodyClick = (event) => {
+      if (ref.current.contains(event.target)) {
+        return;
+      }
+      setOpen(false);
+    };
+    document.body.addEventListener("click", onBodyClick, { capture: true });
+    return () => {
+      document.body.removeEventListener("click", onBodyClick, { capture: true });
+    };
   }, []);
 
   const [toggleMenu, setToggleMenu] = useState("hidden");
@@ -31,7 +30,6 @@ const Dropdown = ({ options, selected, onSelectedChange }) => {
         className="item"
         onClick={() => {
           onSelectedChange(option);
-          console.log("onchange click");
         }}
       >
         {option.label}
@@ -47,7 +45,6 @@ const Dropdown = ({ options, selected, onSelectedChange }) => {
           ref={ref}
           onClick={() => {
             setOpen(!open);
-            console.log("dropdown click");
           }}
           className={`ui selection dropdown ${open ? "visible active" : " "}`}
         >
