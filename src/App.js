@@ -3,6 +3,7 @@ import Accordion from "./components/Accordion";
 import Search from "./components/Search";
 import Dropdown from "./components/Dropdown";
 import { getValue } from "@testing-library/user-event/dist/utils";
+import Translate from "./components/Translate";
 
 const items = [
   {
@@ -35,12 +36,14 @@ const options = [
 ];
 
 export default () => {
-  const [selected, setSelected] = useState(options[0]);
-  const [showDropdown, setShowDropdown] = useState(true);
   return (
     <div>
-      <button onClick={() => setShowDropdown(!showDropdown)}> Toggle Dropdown</button>
-      {showDropdown ? <Dropdown selected={selected} onSelectedChange={setSelected} options={options} /> : null}
+      <Translate />
     </div>
   );
 };
+
+//can use "selected" state with if & else statements to determine classNames to style text colour
+// just make a new function and add it to the onClick event listener in the dropDown list
+// when you click one of the colour options it will update which className to use.
+// define a variable in the function, if  selected state is === to X, the variable = y, return the variable
