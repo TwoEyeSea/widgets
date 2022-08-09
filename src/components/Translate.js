@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import Dropdown from "./Dropdown";
-
+import Dropdown from "./DropDown";
 const options = [
   {
     label: "Afrikaans",
