@@ -5,6 +5,7 @@ import Dropdown from "./components/Dropdown";
 import { getValue } from "@testing-library/user-event/dist/utils";
 import Translate from "./components/Translate";
 import Route from "./components/Route";
+import Header from "./components/Header";
 const items = [
   {
     title: "What is React?",
@@ -40,32 +41,9 @@ const options = [
 export default () => {
   const [selected, setSelected] = useState(options[0]);
 
-  const showAccordion = () => {
-    if (window.location.pathname === "/") {
-      return <Accordion items={items} />;
-    }
-  };
-
-  const showSearch = () => {
-    if (window.location.pathname === "/list") {
-      return <Search />;
-    }
-  };
-
-  const showDropdown = () => {
-    if (window.location.pathname === "/dropdown") {
-      return <Dropdown selected={selected} onSelectedChange={setSelected} options={options} />;
-    }
-  };
-
-  const showTranslate = () => {
-    if (window.location.pathname === "/translate") {
-      return <Translate />;
-    }
-  };
-
   return (
     <div>
+      <Header />
       <Route path="/">
         <Accordion items={items} />
       </Route>
