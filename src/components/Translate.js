@@ -36,10 +36,10 @@ const Translate = () => {
       </div>
       <Dropdown options={options} selected={language} onSelectedChange={setLanguage} label={"Select a Language"} />
 
-      <hr />
-      <h3>
-        <Convert text={text} language={language} />
-      </h3>
+      <hr style={{ borderTopColor: "#dededf30" }} />
+
+      <h3 className="ui header">Output</h3>
+      <Convert text={text} language={language} />
     </div>
   );
 };
