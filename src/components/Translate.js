@@ -31,12 +31,7 @@ const Translate = () => {
       <div className="ui form">
         <div className="field">
           <label>Enter Text</label>
-          <input
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            className="input"
-            placeholder="Please enter a phrase"
-          />
+          <input value={text} onChange={(e) => setText(e.target.value)} className="input" />
         </div>
       </div>
       <Dropdown options={options} selected={language} onSelectedChange={setLanguage} label={"Select a Language"} />

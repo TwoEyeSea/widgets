@@ -6,11 +6,15 @@ const Convert = ({ language, text }) => {
   const [debouncedText, setDebouncedText] = useState(text);
 
   useEffect(() => {
+    // After 500ms the useEffect function runs the setDebouncedText function to change the debouncedText state to === text.
     const timerId = setTimeout(() => {
       setDebouncedText(text);
     }, 500);
 
     return () => {
+      // If we enter any other keys again before the setDebouncedText function runs the cleanup function clears the timer
+      // and resets the setTimeout function again for another 500 seconds.
+      // This prevents network requests from being made until we finish typing everything we need in the input field.
       clearTimeout(timerId);
     };
   }, [text]);
